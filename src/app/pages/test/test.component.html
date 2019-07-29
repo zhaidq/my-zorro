@@ -1,0 +1,39 @@
+<form nz-form [nzLayout]="'inline'" (ngSubmit)="submitForm()">
+  <nz-input-group nzCompact>
+    <nz-select name="method" [ngModel]="method" style="width: 100px;">
+      <nz-option *ngFor="let option of methodList" [nzValue]="option" [nzLabel]="option"></nz-option>
+    </nz-select>
+    <input type="text" name="request_url" nz-input [ngModel]="request_url" style="width:50%;" />
+    <button nz-button nzType="primary">发送</button>
+  </nz-input-group>
+</form>
+<nz-collapse style="margin-top: 20px;">
+  <nz-collapse-panel [nzHeader]="'请求参数'" [nzActive]="true">
+    <button nz-button (click)="addRow()" nzType="primary">添加</button>
+    <nz-table #editRowTable [nzData]="listOfData" nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false">
+      <thead>
+      <tr>
+        <th>参数名</th>
+        <th>值</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of editRowTable.data" class="editable-row">
+        <td>
+          <div class="editable-cell">
+            <input type="text" placeholder="参数名" nz-input [(ngModel)]="data.param" />
+          </div>
+        </td>
+        <td>
+          <div class="editable-cell">
+            <input type="text" placeholder="值" nz-input [(ngModel)]="data.value" />
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </nz-collapse-panel>
+  <nz-collapse-panel [nzHeader]="'响应报文'" [nzActive]="false">
+  </nz-collapse-panel>
+</nz-collapse>
+
